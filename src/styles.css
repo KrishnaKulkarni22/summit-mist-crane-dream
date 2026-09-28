@@ -4,16 +4,16 @@
   --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
 
-  --color-bg: #121614;
-  --color-surface: #1b221e;
-  --color-raised: #242c27;
-  --color-fg: #e8e2d4;
-  --color-muted: #9aa394;
-  --color-dim: #6e786f;
-  --color-line: #313a34;
-  --color-brass: #c6a15a;
-  --color-brass-2: #e4d2a4;
-  --color-ink: #14110c;
+  --color-bg: #101820;
+  --color-surface: #17232d;
+  --color-raised: #22313d;
+  --color-fg: #edf2f5;
+  --color-muted: #b2bec7;
+  --color-dim: #91a0aa;
+  --color-line: #30404c;
+  --color-brass: #829eaf;
+  --color-brass-2: #c2d2dc;
+  --color-ink: #111a21;
 }
 
 @layer base {
@@ -27,6 +27,24 @@
     font-size: 16px;
     line-height: 1.5;
   }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  button,
+  input {
+    font: inherit;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 3px;
+  }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
@@ -37,6 +55,154 @@
     *::after {
       animation: none !important;
       transition: none !important;
+    }
+  }
+}
+
+@layer components {
+  .desk-shell {
+    padding-top: clamp(2rem, 5vw, 4rem);
+  }
+
+  .desk-header {
+    border-bottom-color: var(--color-line);
+    padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .desk-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    letter-spacing: 0.14em;
+  }
+
+  .desk-eyebrow::before {
+    width: 1.35rem;
+    height: 1px;
+    background: var(--color-brass);
+    content: "";
+  }
+
+  .desk-title {
+    max-width: 15ch;
+    letter-spacing: -0.035em;
+  }
+
+  .desk-intro {
+    max-width: 68ch;
+    text-wrap: pretty;
+  }
+
+  .desk-toolbar {
+    gap: 1rem;
+    border-bottom: 1px solid var(--color-line);
+    padding: 1.25rem 0;
+  }
+
+  .desk-tabs {
+    gap: 0.35rem;
+    border: 1px solid var(--color-line);
+    border-radius: 0.7rem;
+    background: var(--color-surface);
+    padding: 0.25rem;
+  }
+
+  .desk-tab {
+    min-height: 2.75rem;
+    border: 1px solid transparent;
+    border-radius: 0.45rem;
+    padding-inline: 1rem;
+    color: var(--color-muted);
+    transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
+  }
+
+  .desk-tab[aria-selected="true"] {
+    border-color: var(--color-line);
+    background: var(--color-raised);
+    color: var(--color-fg);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 18%);
+  }
+
+  .desk-tab:hover:not([aria-selected="true"]) {
+    color: var(--color-fg);
+  }
+
+  .desk-actions {
+    justify-content: flex-end;
+  }
+
+  .desk-counts {
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .desk-check {
+    border-radius: 0.5rem;
+    background: var(--color-brass);
+    color: var(--color-ink);
+    font-weight: 600;
+    transition: background-color 180ms ease, transform 180ms ease;
+  }
+
+  .desk-check:hover:not(:disabled) {
+    background: var(--color-brass-2);
+  }
+
+  .desk-check:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  .desk-status {
+    border-left: 2px solid var(--color-brass);
+    background: var(--color-surface);
+    padding: 0.75rem 1rem;
+  }
+
+  .desk-horizon,
+  .desk-card {
+    border-radius: 0.75rem;
+    box-shadow: 0 12px 32px rgb(0 0 0 / 10%);
+  }
+
+  .desk-programme-list > li > button {
+    min-height: 4.75rem;
+    transition: background-color 160ms ease;
+  }
+
+  .desk-programme-list > li > button:hover {
+    background: color-mix(in srgb, var(--color-surface) 58%, transparent);
+  }
+
+  .desk-detail {
+    border-radius: 0.65rem;
+  }
+
+  .desk-filter[aria-pressed="true"] {
+    background: var(--color-surface);
+    color: var(--color-fg);
+  }
+
+  .desk-search {
+    border-radius: 0.55rem;
+  }
+
+  .desk-card {
+    border-radius: 0.7rem;
+  }
+
+  @media (max-width: 639px) {
+    .desk-actions {
+      justify-content: space-between;
+    }
+
+    .desk-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+    }
+
+    .desk-tab {
+      padding-inline: 0.65rem;
     }
   }
 }

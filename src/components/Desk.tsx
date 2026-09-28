@@ -116,15 +116,15 @@ export function Desk() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
-      <header className="border-b border-line pb-5">
-        <p className="text-xs font-medium tracking-widest text-brass uppercase">
+    <div className="desk-shell mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+      <header className="desk-header border-b border-line pb-5">
+        <p className="desk-eyebrow text-xs font-medium tracking-widest text-brass uppercase">
           Indian Navy · programme desk
         </p>
-        <h1 className="mt-2 font-serif text-3xl leading-tight text-fg sm:text-4xl">
+        <h1 className="desk-title mt-3 font-serif text-4xl leading-tight text-fg sm:text-5xl">
           The 2030s, contingent.
         </h1>
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
+        <p className="desk-intro mt-4 text-sm leading-relaxed text-muted sm:text-base">
           The thirteen lines from the 23 September 2026 note come first, in that
           order. Under them are the ships that were off that list: four already
           in steel or on contract, the minehunter and survey gaps, and Project
@@ -134,8 +134,8 @@ export function Desk() {
         </p>
       </header>
 
-      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Sections">
+      <div className="desk-toolbar flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div className="desk-tabs flex flex-wrap" role="tablist" aria-label="Sections">
           {VIEWS.map((v) => (
             <button
               key={v.id}
@@ -143,18 +143,14 @@ export function Desk() {
               role="tab"
               aria-selected={view === v.id}
               onClick={() => setView(v.id)}
-              className={
-                view === v.id
-                  ? "min-h-11 rounded-full bg-brass px-4 text-sm font-medium text-ink"
-                  : "min-h-11 rounded-full border border-line px-4 text-sm text-muted hover:text-fg"
-              }
+              className="desk-tab text-sm font-medium"
             >
               {v.label}
             </button>
           ))}
         </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <p className="text-xs text-dim">
+        <div className="desk-actions flex flex-wrap items-center gap-3">
+          <p className="desk-counts text-xs">
             {live.filter((p) => p.confidence === "signed").length} signed ·{" "}
             {live.filter((p) => p.confidence === "reported").length} reported ·{" "}
             {live.filter((p) => p.confidence === "model").length} modeled
@@ -163,7 +159,7 @@ export function Desk() {
             type="button"
             onClick={onCheck}
             disabled={checking}
-            className="min-h-11 border border-brass px-4 text-sm text-brass-2 disabled:opacity-50"
+            className="desk-check min-h-11 px-4 text-sm disabled:opacity-50"
           >
             {checking ? "Checking…" : "Check open sources"}
           </button>
@@ -171,7 +167,7 @@ export function Desk() {
       </div>
 
       {(checkError || checkedAt) && (
-        <p className="mt-3 text-sm text-muted" role="status">
+        <p className="desk-status mt-3 text-sm text-muted" role="status">
           {checkError
             ? checkError
             : changes.length === 0
@@ -247,18 +243,15 @@ function Slate({
             <button
               key={d.id}
               type="button"
+              aria-pressed={domain === d.id}
               onClick={() => setDomain(d.id)}
-              className={
-                domain === d.id
-                  ? "min-h-11 rounded-full border border-brass px-3 text-sm text-brass-2"
-                  : "min-h-11 rounded-full border border-line px-3 text-sm text-dim hover:text-fg"
-              }
+              className={`desk-filter min-h-11 rounded-full border px-3 text-sm transition-colors ${domain === d.id ? "border-brass text-brass-2" : "border-line text-dim hover:text-fg"}`}
             >
               {d.label}
             </button>
           ))}
         </div>
-        <label className="flex min-h-11 items-center gap-2 border border-line bg-surface px-3 text-sm text-muted">
+        <label className="desk-search flex min-h-11 items-center gap-2 border border-line bg-surface px-3 text-sm text-muted">
           <Search className="size-4 shrink-0" aria-hidden />
           <input
             value={query}
@@ -272,7 +265,7 @@ function Slate({
 
       <Horizon shown={shown} open={open} setOpen={setOpen} />
 
-      <ol className="mt-4 border-t border-line">
+      <ol className="desk-programme-list mt-4 border-t border-line">
         {shown.length === 0 && (
           <li className="py-8 text-sm text-muted">Nothing in this cut.</li>
         )}
@@ -307,7 +300,7 @@ function Slate({
                 </span>
               </button>
               {on && (
-                <div className="mb-5 border-t border-line bg-surface px-4 py-4 sm:ml-12">
+                <div className="desk-detail mb-5 border-t border-line bg-surface px-4 py-4 sm:ml-12">
                   <p className="text-xs tracking-wide text-dim uppercase">
                     {DOMAIN_LABEL[p.domain]} · {p.count}
                   </p>
@@ -362,7 +355,7 @@ function Horizon({
 }) {
   const ticks = [2026, 2030, 2034, 2038, 2042, 2046];
   return (
-    <div className="mt-5 border border-line bg-surface p-3 sm:p-4">
+    <div className="desk-horizon mt-5 border border-line bg-surface p-3 sm:p-5">
       <div className="mb-2 flex items-baseline justify-between gap-3">
         <h2 className="font-serif text-lg text-fg">Horizon</h2>
         <p className="text-xs text-dim">Bar is the public window, not a Gantt from a yard.</p>
@@ -485,7 +478,7 @@ function UncrewedBoard() {
       </p>
       <div className="mt-4 grid gap-3 md:grid-cols-2">
         {UNCREWED.map((u) => (
-          <article key={u.name} className="border border-line bg-surface p-4">
+          <article key={u.name} className="desk-card border border-line bg-surface p-4 sm:p-5">
             <div className="flex items-baseline justify-between gap-3">
               <h3 className="font-serif text-xl text-fg">{u.name}</h3>
               <span className="text-xs tracking-wide text-brass uppercase">{u.stage}</span>
