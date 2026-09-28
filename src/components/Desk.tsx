@@ -193,10 +193,16 @@ export function Desk() {
       {view === "uncrewed" && <UncrewedBoard />}
       {view === "rules" && <Rules />}
 
-      <footer className="mt-10 border-t border-line pt-4 text-xs leading-relaxed text-dim">
-        Public reporting as of 28 September 2026. P17A is the frigate reference;
-        Kalvari is the submarine reference. Projection bars are estimates, not
-        commitments.
+      <footer className="desk-footer mt-10 border-t border-line pt-4 text-xs leading-relaxed text-dim">
+        <p>
+          Public reporting as of 28 September 2026. P17A is the frigate reference;
+          Kalvari is the submarine reference. Projection bars are estimates, not
+          commitments.
+        </p>
+        <span className="desk-watermark" aria-label="ExiledSeraph watermark">
+          <span className="desk-watermark-mark" aria-hidden="true">✦</span>
+          <span className="desk-watermark-word">ExiledSeraph</span>
+        </span>
       </footer>
     </div>
   );
