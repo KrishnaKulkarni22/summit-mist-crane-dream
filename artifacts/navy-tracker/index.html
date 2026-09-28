@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IN Programme Desk — Indian Navy build tracker</title>
+<style>
+  :root {
+    --bg: #0c1218;
+    --bg-2: #131b24;
+    --panel: #172230;
+    --line: #2a3a4c;
+    --ink: #e7eef6;
+    --muted: #8ea0b5;
+    --dim: #617588;
+    --brass: #c4a46a;
+    --brass-2: #e8d7a8;
+    --sea: #6eb3c9;
+    --green: #7dba8a;
+    --amber: #d7a15a;
+    --red: #c97b6e;
+    --violet: #a894d4;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.45;
+    background-image:
+      radial-gradient(1200px 500px at 80% -10%, rgba(110,179,201,0.08), transparent 60%),
+      linear-gradient(180deg, #101820 0%, #0c1218 240px);
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 22px 80px; }
+  header.top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    align-items: end;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+  }
+  .kicker {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--brass);
+    margin: 0 0 6px;
+  }
+  h1 { font-weight: 500; font-size: 34px; margin: 0; letter-spacing: -0.02em; }
+  h1 span { color: var(--brass-2); }
+  .asof {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: right;
+  }
+  .asof strong { color: var(--ink); font-weight: 500; }
+  nav.tabs {
+    display: flex; gap: 6px; flex-wrap: wrap; margin: 18px 0 16px;
+  }
+  nav.tabs button {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  nav.tabs button.on { color: #101820; background: var(--brass-2); border-color: var(--brass-2); }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 12px 14px;
+  }
+  .stat .n {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 22px;
+    color: var(--brass-2);
+  }
+  .stat .l { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  section { display: none; }
+  section.on { display: block; }
+  h2 {
+    font-weight: 500;
+    font-size: 22px;
+    margin: 8px 0 6px;
+  }
+  .lede { color: var(--muted); margin: 0 0 16px; max-width: 78ch; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    padding: 16px 16px 14px;
+  }
+  .card h3 { margin: 0 0 4px; font-weight: 500; font-size: 20px; }
+  .meta {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 11.5px;
+    color: var(--dim);
+    margin-bottom: 10px;
+  }
+  .pill {
+    display: inline-block;
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    margin-right: 6px;
+  }
+  .pill.rfp { color: var(--sea); border-color: #3d6274; }
+  .pill.neg { color: var(--amber); border-color: #6d5530; }
+  .pill.build { color: var(--green); border-color: #3d6248; }
+  .pill.fit { color: var(--violet); border-color: #57487a; }
+  .pill.done { color: var(--brass-2); border-color: #6d5c38; }
+  .row { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-top: 1px solid #223140; font-size: 14.5px; }
+  .row span:first-child { color: var(--muted); }
+  .note { color: var(--dim); font-size: 13px; margin-top: 10px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    margin: 8px 0 22px;
+  }
+  th, td { text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 500;
+  }
+  .tl {
+    margin: 8px 0 4px;
+    position: relative;
+    height: 28px;
+    background: #101820;
+    border: 1px solid var(--line);
+  }
+  .tl i {
+    position: absolute;
+    top: 0; bottom: 0;
+    background: linear-gradient(90deg, #3d6274, #c4a46a);
+    opacity: 0.85;
+  }
+  .tl b {
+    position: absolute;
+    top: -1px; bottom: -1px;
+    width: 2px;
+    background: var(--brass-2);
+  }
+  .ticks {
+    display: flex; justify-content: space-between;
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 10.5px;
+    color: var(--dim);
+    margin-bottom: 8px;
+  }
+  .phase {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 8px;
+    font-size: 13.5px;
+    padding: 4px 0;
+  }
+  .phase em { font-style: normal; color: var(--muted); font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 12px; }
+  footer {
+    margin-top: 28px;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    color: var(--dim);
+    font-size: 13px;
+  }
+  .method { background: #101820; border: 1px solid var(--line); padding: 14px 16px; margin-top: 8px; }
+  .method h3 { margin: 0 0 8px; font-size: 16px; font-weight: 500; }
+  ul.clean { margin: 6px 0 0; padding-left: 18px; color: var(--muted); }
+  ul.clean li { margin: 4px 0; }
+  @media (max-width: 860px) {
+    .stats, .grid { grid-template-columns: 1fr; }
+    header.top { grid-template-columns: 1fr; }
+    .asof { text-align: left; }
+    h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <p class="kicker">Indian Navy · programme desk</p>
+      <h1>Build tracker <span>for the fleet that is still on paper.</span></h1>
+    </div>
+    <div class="asof">Snapshot <strong>28 Sep 2026</strong><br>Not an official Navy feed. Projections are a model.</div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="on" data-tab="now">In the yards</button>
+    <button data-tab="future">P17B · P15C · NGC · P75I</button>
+    <button data-tab="unmanned">USV · UUV · HEAUV · XLUUV</button>
+    <button data-tab="method">How the dates are made</button>
+  </nav>
+
+  <div class="stats">
+    <div class="stat"><div class="n">7</div><div class="l">P17B frigates — RFP out, no contract</div></div>
+    <div class="stat"><div class="n">4</div><div class="l">P15C destroyers — RFP still ahead</div></div>
+    <div class="stat"><div class="n">8</div><div class="l">NGC corvettes — CNC done, CCS pending</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">P75I boats — signature still not inked</div></div>
+  </div>
+
+  <section id="now" class="on">
+    <h2>What is actually in steel</h2>
+    <p class="lede">Commissioned, fitting out, or on the blocks. Future classes sit on the next tab. Dates below are public; a few late-2026 commissions are recent enough that pennant details can still shift in secondary reporting.</p>
+    <table>
+      <thead>
+        <tr><th>Programme</th><th>Hull</th><th>Yard</th><th>Status</th><th>Mark</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>P17A Nilgiri</td><td>INS Nilgiri</td><td>MDL</td><td><span class="pill done">Commissioned</span></td><td>15 Jan 2025</td></tr>
+        <tr><td>P17A</td><td>INS Udaygiri</td><td>MDL</td><td><span class="pill done">Commissioned</span></td><td>26 Aug 2025</td></tr>
+        <tr><td>P17A</td><td>INS Himgiri</td><td>GRSE</td><td><span class="pill done">Commissioned</span></td><td>26 Aug 2025</td></tr>
+        <tr><td>P17A</td><td>INS Taragiri</td><td>GRSE</td><td><span class="pill done">Commissioned</span></td><td>3 Apr 2026</td></tr>
+        <tr><td>P17A</td><td>INS Dunagiri</td><td>GRSE</td><td><span class="pill done">Commissioned</span></td><td>21 Jun 2026</td></tr>
+        <tr><td>P17A</td><td>INS Mahendragiri</td><td>MDL</td><td><span class="pill done">Commissioned</span></td><td>11 Jul 2026 · delivered 30 Apr</td></tr>
+        <tr><td>P17A</td><td>INS Vindhyagiri</td><td>GRSE</td><td><span class="pill fit">Fitting out / trials</span></td><td>Last of class · expected late 2026</td></tr>
+        <tr><td>P15B</td><td>Visakhapatnam class ×4</td><td>MDL</td><td><span class="pill done">Class complete</span></td><td>Surat closed the line in 2025</td></tr>
+        <tr><td>SVL</td><td>Sandhayak class ×4</td><td>GRSE</td><td><span class="pill done">Class complete</span></td><td>Sanshodhak commissioned 21 Jun 2026</td></tr>
+        <tr><td>ASW-SWC</td><td>Arnala, Anjadip, Agray, Androth, Malwan + sisters</td><td>GRSE / L&amp;T</td><td><span class="pill build">Mixed</span></td><td>16-ship class. Several commissioned 2025–26; others launched or on the slip. Last hulls run into 2027–28.</td></tr>
+        <tr><td>NGMV</td><td>Yard 531 / 532</td><td>CSL</td><td><span class="pill build">Keel laid</span></td><td>Contract 30 Mar 2023 · ₹9,805 cr for 6. Steel cut #1 Dec 2024. Keel #1 laid 18 Sep 2026. First delivery scheduled Mar 2027.</td></tr>
+        <tr><td>NGSV</td><td>5 survey vessels</td><td>CSL L1</td><td><span class="pill neg">Bid</span></td><td>Follow-on to SVL. Not yet a build contract in the public record.</td></tr>
+      </tbody>
+    </table>
+    <p class="note">P15B is done. The destroyer gap the Navy is trying to fill is P15C, not another Visakhapatnam. P18 / 18A is the large surface combatant after that, and on current talk does not arrive before the mid-2040s — which is why P15C exists at all.</p>
+  </section>
+
+  <section id="future">
+    <h2>The four clocks that matter</h2>
+    <p class="lede">Your model: RFP, then about three years to first steel, then 6–8 years for the lead ship, using P17A for frigates and destroyers and Kalvari for the submarine. P17B has already broken the old “RFP in H1 2027” assumption — the RFP went out on 16 September 2026. Everything after contract is still a projection.</p>
+
+    <div class="ticks"><span>2026</span><span>2030</span><span>2034</span><span>2038</span><span>2042</span></div>
+
+    <div class="card" style="margin-bottom:14px">
+      <h3>Project 17B · Next Generation Frigate</h3>
+      <div class="meta">7 ships · ~₹70,000 crore · competitive RFP, not nomination · MDL, GRSE, GSL, CSL</div>
+      <span class="pill rfp">RFP issued</span>
+      <div class="tl" title="P17B window"><i style="left:1%;width:46%"></i><b style="left:1%"></b></div>
+      <div class="phase"><em>16 Sep 2026</em><span>RFP issued to Category A yards. Technical bids ~120 days out. Shephard: contract hoped for late 2027.</span></div>
+      <div class="phase"><em>2029–30</em><span>First steel, if the three-year RFP-to-construction average holds. Design freeze and long-lead items sit in this gap.</span></div>
+      <div class="phase"><em>2035–37</em><span>Lead ship delivery. P17A reference: contract Feb 2015, Nilgiri delivered Dec 2024 / commissioned Jan 2025 — about ten years contract-to-commission, and the lead boat took ~93 months once building. Follow-ons came down toward 80 months.</span></div>
+      <div class="phase"><em>2041–43</em><span>Class of seven, at a 12–18 month drumbeat after the lead ship. Slip the contract and the whole bar moves right.</span></div>
+      <p class="note">Follow-on to Nilgiri. Public descriptions: more VLS than P17A, better signature, strike + area air defence + ASW. Weapons and sensors still have foreign content risk even if the hull is competed at home. Earlier July 2026 NDTV line (RFP in 18 months, six ships) is overtaken.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Project 15C · next destroyers</h3>
+        <div class="meta">4 ships · ~₹50,000 crore · NDTV, 10 Jul 2026</div>
+        <span class="pill neg">Pre-RFP</span>
+        <div class="tl"><i style="left:8%;width:48%"></i><b style="left:8%"></b></div>
+        <div class="phase"><em>H2 2026 – 2027</em><span>RFP “within the next year” of the July 2026 report. Not issued as of this snapshot. Same competitive logic may or may not apply — not confirmed.</span></div>
+        <div class="phase"><em>~2030</em><span>Construction ~3 years after RFP, same rule as P17B.</span></div>
+        <div class="phase"><em>2036–38</em><span>Lead ship, 6–8 years. Class of four closes early 2040s if the drumbeat holds.</span></div>
+        <p class="note">Bridge between P15B and P18. Engine line is part of why this exists: the Ukrainian plant that fed earlier destroyer turbines is gone. Zorya-style dependency is the planning constraint, not just hull count.</p>
+      </div>
+      <div class="card">
+        <h3>NGC · Next Generation Corvette</h3>
+        <div class="meta">8 ships · GRSE 5, GSL 3 · ~₹33,000–40,000 cr</div>
+        <span class="pill neg">CCS pending</span>
+        <div class="tl"><i style="left:2%;width:36%"></i><b style="left:2%"></b></div>
+        <div class="phase"><em>AoN Jun 2022</em><span>GRSE emerged L1 in May 2025. Price negotiations reported complete by May 2026.</span></div>
+        <div class="phase"><em>FY27</em><span>GRSE told investors formal signature expected Q2 FY27. That window is Jul–Sep 2026 and has not publicly closed. Treat contract as imminent, not signed.</span></div>
+        <div class="phase"><em>~2031–33</em><span>Lead corvette. Smaller than a frigate, so 5–7 years from contract is the working band, not the 6–8 from first steel used for P17B. Revenue at GRSE not expected before H2 FY28.</span></div>
+        <div class="phase"><em>mid-2030s</em><span>Eight hulls, split Kolkata / Goa. Replaces Khukri and Kora in role.</span></div>
+        <p class="note">~3,500 t, ~32 kn, ER-BrahMos and VL-SRSAM in the public armament sketch. Model tests at NSTL reported complete mid-2026.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h3>Project 75(I) · six AIP submarines</h3>
+      <div class="meta">MDL + TKMS · sole compliant bidder after Navantia fell on AIP · ~₹70,000–90,000 crore</div>
+      <span class="pill neg">Awaiting CCS</span>
+      <div class="tl"><i style="left:4%;width:42%"></i><b style="left:4%"></b></div>
+      <div class="phase"><em>Done</em><span>Concept design agreement closed 31 Aug 2025. CNC closed 16 Jan 2026. Finance Ministry clearance 28 May 2026.</span></div>
+      <div class="phase"><em>Late 2026?</em><span>CCS and signature still open on 28 Sep 2026. German ambassador has twice said “within a month.” That sentence has already aged once.</span></div>
+      <div class="phase"><em>+7 years</em><span>Contractual first boat. A September 2026 signature puts nominal delivery in 2033, then roughly annual: 2034, 2035, 2036, 2037, 2038. Induction can lag delivery.</span></div>
+      <div class="phase"><em>Kalvari check</em><span>P75 contract Oct 2005. Construction of the lead boat from 2009. Kalvari commissioned Dec 2017. Vagsheer, the sixth, commissioned 15 Jan 2025. Contract-to-first-boat was twelve years; the class took nineteen. The 7-year P75I clause is tighter than the Kalvari outturn. Use it as a floor, not a promise.</span></div>
+      <p class="note">Fuel-cell AIP, indigenous content stepping from ~45% to ~60%. This line does not fix the 2030s SSK trough by itself — Sindhughosh already went in Dec 2025, and the rest of the Kilo and HDW boats age out while P75I is still being built.</p>
+    </div>
+  </section>
+
+  <section id="unmanned">
+    <h2>Uncrewed layer</h2>
+    <p class="lede">These are force multipliers, not hull replacements. Public numbers disagree on displacement for the XLUUV — your September note says 20 tonnes and end-2027; some design sketches in the trade press still talk about a much larger boat. Both are kept, and labelled.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>XLUUV</h3>
+        <div class="meta">12 units · Make-I · ₹2,500 cr cleared Sep 2024</div>
+        <span class="pill build">Plate cut</span>
+        <div class="row"><span>Role</span><span>ASW, ASuW, MCM, ISR. Manned-unmanned teaming.</span></div>
+        <div class="row"><span>Your figure</span><span>20 t · 30–45 days · induction EO 2027</span></div>
+        <div class="row"><span>Yard mark</span><span>Jalkapi, KDAIL Halol — plate cutting 10 Jun 2025</span></div>
+        <div class="row"><span>Other sketch</span><span>Trade notes still describe a ~40–50 m / up to 100 t design study. Not the same object as the 20 t line unless the Navy has split the requirement.</span></div>
+        <p class="note">End-2027 for a first article is aggressive against a June 2025 plate cut, but plausible for a prototype rather than an operational squadron of 12. A strike variant is talked about, not contracted.</p>
+      </div>
+      <div class="card">
+        <h3>HEAUV</h3>
+        <div class="meta">NSTL + CSL · requirement cited up to 20</div>
+        <span class="pill fit">Trials</span>
+        <div class="row"><span>Size</span><span>~10 m × 1 m · depth ~300 m</span></div>
+        <div class="row"><span>Endurance</span><span>15 days at 3 kn · 8 kn max</span></div>
+        <div class="row"><span>Sensors</span><span>Forward- and side-looking sonar for persistent submarine track, shared to other HEAUVs and ASW ships</span></div>
+        <div class="row"><span>Trials</span><span>Surface run Mar 2024 · lake run Mar 2025</span></div>
+        <p class="note">Closest uncrewed underwater system to a Navy induction decision. No public production contract for the 20-hull requirement.</p>
+      </div>
+      <div class="card">
+        <h3>Matangi USV swarm</h3>
+        <div class="meta">Sagar Defence + WESEE · iDEX</div>
+        <span class="pill build">Delivering</span>
+        <div class="row"><span>Contract</span><span>12 weaponised autonomous boats · 8 Jan 2023</span></div>
+        <div class="row"><span>Proof</span><span>850 nm autonomous Mumbai–Tuticorin run, 2024</span></div>
+        <div class="row"><span>Delivery</span><span>First batch of two left Pune 30 Jan 2026, west coast</span></div>
+        <div class="row"><span>Fit</span><span>12.7 mm · fitted-for missiles and loitering munitions</span></div>
+      </div>
+      <div class="card">
+        <h3>CASCADE and the MCM set</h3>
+        <div class="meta">Uncrewed mine countermeasures</div>
+        <span class="pill rfp">Requirement</span>
+        <div class="row"><span>MCMV</span><span>12 motherships · DAC nod Jul 2025 · ~₹44,000 cr band cited · RFP not the story yet</span></div>
+        <div class="row"><span>Suites</span><span>12 unmanned MCM suites — CASCADE ASV, AUV, ROV — to work off those motherships</span></div>
+        <div class="row"><span>ASW USV</span><span>Separate ask: ~20 CASCADE-type craft, 15–25 m, thin-line sonar, torpedo tubes</span></div>
+        <div class="row"><span>CASC</span><span>Compact Autonomous Surface Craft cleared by DAC 5 Aug 2025 for ASW detect / classify / kill</span></div>
+        <p class="note">BEL and WESEE have already put an autonomy suite on an in-service fast interceptor for MCM drills. That is software on a crewed hull, not the new class.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="method">
+    <h2>How the dates are made</h2>
+    <div class="method">
+      <h3>Rules used on this page</h3>
+      <ul class="clean">
+        <li>P17B and P15C: construction starts about three years after RFP. Lead ship 6–8 years after that. P17A is the reference — Feb 2015 contract, Nilgiri delivered Dec 2024, follow-on build time falling from 93 months toward 80.</li>
+        <li>P75I: contractual first boat seven years after signature, then about one a year. Kalvari is the cautionary reference, not the schedule: twelve years to the first boat, nineteen to the sixth.</li>
+        <li>NGC: corvette, so a shorter band — 5–7 years from contract to lead ship. Contract itself is the open item.</li>
+        <li>A signed contract moves the bar from “model” to “contractual.” Nothing on the future tab has that signature except NGMV, which is already in steel and lives on the yards tab.</li>
+        <li>P17B RFP of 16 Sep 2026 replaces the older “H1 2027” expectation. If you still want the page to show the pre-RFP model as a ghost bar, that is a one-line change in the data.</li>
+      </ul>
+      <h3 style="margin-top:16px">What “live” can actually mean</h3>
+      <ul class="clean">
+        <li>The Navy, MDL, GRSE, GSL and CSL do not publish a machine-readable build feed. PIB notes, yard disclosures and the occasional CNC leak are the sources.</li>
+        <li>This file is a snapshot with the data in one script block at the bottom. Updating a date is a text edit, not a scrape.</li>
+        <li>A hosted version on GitHub Pages or any static host is the practical “live site.” A bot that files a commit when PIB posts a commissioning note is the closest thing to automatic, and it will still need a human on the projection bars.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    Built as a desk, not a feed. Public reporting as of 28 Sep 2026: CNBC-TV18 and TOI on the P17B RFP, NDTV 10 Jul 2026 on P15C, GRSE investor comments and Wikipedia/CNC reporting on NGC, India Today / Defence Standard / German envoy comments on P75I, Indian Navy and yard notes on P17A and NGMV, and the 26 Sep 2026 notes on XLUUV and HEAUV. Projection bands are not Navy commitments.
+  </footer>
+</div>
+<script>
+  const tabs = document.getElementById('tabs');
+  tabs.addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    tabs.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    document.querySelectorAll('section').forEach(s => s.classList.remove('on'));
+    document.getElementById(b.dataset.tab).classList.add('on');
+  });
+</script>
+</body>
+</html>
