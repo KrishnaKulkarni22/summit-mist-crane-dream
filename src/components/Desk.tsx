@@ -388,14 +388,14 @@ function Horizon({
                     >
                       {p.name}
                     </span>
-                    <span className="relative col-span-9 h-3 bg-raised">
+                    <span className="horizon-track relative col-span-9 h-4">
                       <span
                         className={
                           p.confidence === "signed"
-                            ? "absolute inset-y-0 bg-brass"
+                            ? `horizon-bar horizon-bar-signed${hot ? " horizon-bar-active" : ""}`
                             : p.confidence === "reported"
-                              ? "absolute inset-y-0 bg-brass-2 opacity-80"
-                              : "absolute inset-y-0 border border-brass bg-transparent"
+                              ? `horizon-bar horizon-bar-reported${hot ? " horizon-bar-active" : ""}`
+                              : `horizon-bar horizon-bar-model${hot ? " horizon-bar-active" : ""}`
                         }
                         style={{ left: `${left}%`, width: `${width}%` }}
                       />
@@ -407,13 +407,13 @@ function Horizon({
           </ul>
           <div className="mt-3 flex flex-wrap gap-4 text-xs text-dim">
             <span className="inline-flex items-center gap-2">
-              <i className="inline-block h-2 w-6 bg-brass" /> Signed
+              <i className="horizon-key horizon-key-signed" /> Signed
             </span>
             <span className="inline-flex items-center gap-2">
-              <i className="inline-block h-2 w-6 bg-brass-2" /> Reported
+              <i className="horizon-key horizon-key-reported" /> Reported
             </span>
             <span className="inline-flex items-center gap-2">
-              <i className="inline-block h-2 w-6 border border-brass" /> Model
+              <i className="horizon-key horizon-key-model" /> Model
             </span>
           </div>
         </div>
