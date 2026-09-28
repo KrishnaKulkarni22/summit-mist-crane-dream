@@ -7,7 +7,6 @@ import {
   HORIZON_END,
   HORIZON_START,
   HULLS,
-  NOTE_COUNT,
   PROGRAMMES,
   UNCREWED,
   type Confidence,
@@ -125,12 +124,12 @@ export function Desk() {
           The 2030s, contingent.
         </h1>
         <p className="desk-intro mt-4 text-sm leading-relaxed text-muted sm:text-base">
-          The thirteen lines from the 23 September 2026 note come first, in that
-          order. Under them are the ships that were off that list: four already
-          in steel or on contract, the minehunter and survey gaps, and Project
-          18 and the second carrier, which are not 2030s deliveries. The page
-          opens on the 28 September snapshot. Check open sources when you want
-          a pass for a contract, an RFP, a keel, or a commissioning since then.
+          A tracker of Indian Navy programmes with deliveries or decisions
+          relevant to the 2030s. It follows the 23 September 2026 note, then
+          adds related projects for context. Each row shows the public status
+          and an estimated timeline: signed contracts, reported plans, or
+          modelled projections. Snapshot: 28 September 2026. Dates can shift
+          as approvals, contracts, and construction progress.
         </p>
       </header>
 
@@ -195,10 +194,9 @@ export function Desk() {
       {view === "rules" && <Rules />}
 
       <footer className="mt-10 border-t border-line pt-4 text-xs leading-relaxed text-dim">
-        Public reporting as of 28 September 2026. The first thirteen are the note
-        posted that week. The ships under the break were off that list. P17A is
-        the frigate reference. Kalvari is the submarine reference. Projection
-        bars are not commitments.
+        Public reporting as of 28 September 2026. P17A is the frigate reference;
+        Kalvari is the submarine reference. Projection bars are estimates, not
+        commitments.
       </footer>
     </div>
   );
@@ -269,19 +267,12 @@ function Slate({
         {shown.length === 0 && (
           <li className="py-8 text-sm text-muted">Nothing in this cut.</li>
         )}
-        {shown.map((p, i) => {
+        {shown.map((p) => {
           const on = open === p.id;
           const change = changes.find((c) => c.id === p.id);
           const idx = PROGRAMMES.findIndex((x) => x.id === p.id);
-          const prev = i > 0 ? PROGRAMMES.findIndex((x) => x.id === shown[i - 1].id) : -1;
-          const split = idx >= NOTE_COUNT && (i === 0 || prev < NOTE_COUNT);
           return (
             <li key={p.id} className="border-b border-line">
-              {split && (
-                <p className="border-b border-line py-3 text-xs tracking-widest text-brass uppercase">
-                  Off the 23 September note
-                </p>
-              )}
               <button
                 type="button"
                 aria-expanded={on}
