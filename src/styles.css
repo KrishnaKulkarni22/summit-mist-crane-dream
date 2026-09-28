@@ -186,41 +186,42 @@
   }
 
   .horizon-bar-signed {
-    border: 1px solid rgb(194 210 220 / 48%);
+    border: 1px solid rgb(139 223 231 / 82%);
     background: linear-gradient(
       110deg,
-      rgb(130 158 175 / 68%),
-      rgb(194 210 220 / 32%) 48%,
-      rgb(111 141 160 / 58%)
+      rgb(46 133 151 / 92%),
+      rgb(120 201 210 / 72%) 48%,
+      rgb(48 113 131 / 88%)
     );
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 45%),
-      inset 0 -1px 0 rgb(8 18 26 / 28%),
-      0 0 10px rgb(130 158 175 / 12%);
+      inset 0 1px 0 rgb(223 255 255 / 56%),
+      inset 0 -1px 0 rgb(8 18 26 / 32%),
+      0 0 10px rgb(76 190 203 / 24%);
   }
 
   .horizon-bar-reported {
-    border: 1px solid rgb(237 242 245 / 42%);
+    border: 1px solid rgb(237 242 245 / 82%);
     background: linear-gradient(
       110deg,
-      rgb(237 242 245 / 54%),
-      rgb(178 190 199 / 24%) 52%,
-      rgb(145 160 170 / 42%)
+      rgb(237 242 245 / 78%),
+      rgb(178 190 199 / 58%) 52%,
+      rgb(145 160 170 / 74%)
     );
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 52%),
-      inset 0 -1px 0 rgb(8 18 26 / 24%);
+      inset 0 1px 0 rgb(255 255 255 / 78%),
+      inset 0 -1px 0 rgb(8 18 26 / 28%),
+      0 0 8px rgb(237 242 245 / 16%);
   }
 
   .horizon-bar-model {
-    border: 1px solid rgb(130 158 175 / 78%);
+    border: 1px dashed rgb(226 178 111 / 92%);
     background: linear-gradient(
       110deg,
-      rgb(130 158 175 / 14%),
-      rgb(194 210 220 / 6%) 52%,
-      rgb(111 141 160 / 16%)
+      rgb(226 178 111 / 18%),
+      rgb(226 178 111 / 7%) 52%,
+      rgb(226 178 111 / 16%)
     );
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 18%);
+    box-shadow: inset 0 1px 0 rgb(255 244 222 / 28%);
   }
 
   .horizon-bar-active {
@@ -240,18 +241,18 @@
   }
 
   .horizon-key-signed {
-    border: 1px solid rgb(194 210 220 / 48%);
-    background: linear-gradient(110deg, rgb(130 158 175 / 68%), rgb(194 210 220 / 32%), rgb(111 141 160 / 58%));
+    border: 1px solid rgb(139 223 231 / 82%);
+    background: linear-gradient(110deg, rgb(46 133 151 / 92%), rgb(120 201 210 / 72%), rgb(48 113 131 / 88%));
   }
 
   .horizon-key-reported {
-    border: 1px solid rgb(237 242 245 / 42%);
-    background: linear-gradient(110deg, rgb(237 242 245 / 54%), rgb(178 190 199 / 24%), rgb(145 160 170 / 42%));
+    border: 1px solid rgb(237 242 245 / 82%);
+    background: linear-gradient(110deg, rgb(237 242 245 / 78%), rgb(178 190 199 / 58%), rgb(145 160 170 / 74%));
   }
 
   .horizon-key-model {
-    border: 1px solid rgb(130 158 175 / 78%);
-    background: linear-gradient(110deg, rgb(130 158 175 / 14%), rgb(194 210 220 / 6%), rgb(111 141 160 / 16%));
+    border: 1px dashed rgb(226 178 111 / 92%);
+    background: linear-gradient(110deg, rgb(226 178 111 / 18%), rgb(226 178 111 / 7%), rgb(226 178 111 / 16%));
   }
 
   .desk-programme-list > li > button {
