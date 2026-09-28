@@ -267,7 +267,7 @@ function Slate({
         {shown.length === 0 && (
           <li className="py-8 text-sm text-muted">Nothing in this cut.</li>
         )}
-        {shown.map((p) => {
+        {shown.map((p, i) => {
           const on = open === p.id;
           const change = changes.find((c) => c.id === p.id);
           const idx = PROGRAMMES.findIndex((x) => x.id === p.id);
