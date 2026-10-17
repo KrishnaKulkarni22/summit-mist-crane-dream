@@ -88,6 +88,35 @@
     letter-spacing: -0.035em;
   }
 
+  .desk-byline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--color-line);
+    border-radius: 9999px;
+    background: var(--color-surface);
+    padding: 0.45rem 0.8rem 0.45rem 0.5rem;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+
+  .desk-byline strong {
+    color: var(--color-brass-2);
+    font-weight: 600;
+  }
+
+  .desk-byline-mark {
+    display: grid;
+    width: 1.55rem;
+    height: 1.55rem;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--color-brass-2) 45%, transparent);
+    border-radius: 50%;
+    color: var(--color-brass-2);
+    font-size: 0.8rem;
+  }
+
   .desk-intro {
     max-width: 68ch;
     text-wrap: pretty;
@@ -176,7 +205,7 @@
     flex: 0 0 auto;
     align-items: center;
     gap: 0.55rem;
-    opacity: 0.62;
+    opacity: 0.9;
   }
 
   .desk-watermark-mark {
@@ -193,9 +222,9 @@
 
   .desk-watermark-word {
     color: var(--color-muted);
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
   }
 
   .horizon-track {

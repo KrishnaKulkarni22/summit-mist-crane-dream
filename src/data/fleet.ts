@@ -3,6 +3,7 @@ export type Confidence = "signed" | "reported" | "model";
 export type View = "slate" | "yards" | "uncrewed" | "rules";
 
 export type Phase = { when: string; text: string };
+export type Source = { label: string; url: string };
 
 export type Programme = {
   id: string;
@@ -18,6 +19,7 @@ export type Programme = {
   contingent: string;
   phases: Phase[];
   note: string;
+  sources?: Source[];
 };
 
 export const DOMAINS: { id: Domain | "all"; label: string }[] = [
@@ -57,6 +59,29 @@ export const PROGRAMMES: Programme[] = [
       { when: "Kalvari", text: "P75 was signed in Oct 2005. Kalvari commissioned Dec 2017. Vagsheer, the sixth, commissioned 15 Jan 2025. Treat seven years as a floor." },
     ],
     note: "Fuel-cell AIP. Indigenous content stepped from roughly 45% to 60% in the reported terms. This line does not, by itself, cover the boats ageing out in the same decade.",
+  },
+  {
+    id: "p75add",
+    name: "Additional Scorpenes",
+    domain: "subsurface",
+    count: "3 boats · MDL + Naval Group support",
+    stage: "Modified proposal to CCS",
+    confidence: "model",
+    window: "Lead ~2033–34 if signed in 2027",
+    from: 2033,
+    to: 2034,
+    contingent: "No contract clock has started. A roughly six-year lead-boat estimate only applies after a contract; follow-on dates are not public.",
+    phases: [
+      { when: "13 Jul 2023", text: "The Defence Acquisition Council granted Acceptance of Necessity for three additional Scorpenes under Buy (Indian), to be built by MDL. AoN is an acquisition step, not contract approval." },
+      { when: "13 Oct 2026", text: "Hindustan Times reports a modified proposal is being put before CCS, at an estimated ₹33,000 crore. CCS clearance and a signed contract have not been publicly confirmed." },
+      { when: "Model", text: "ThePrint reported in July 2025 that the proposed schedule was 72 months per submarine and that at least six years would pass before a new boat is delivered. A 2027 signature therefore suggests a lead boat around 2033–34; this is a scenario, not an official delivery window." },
+    ],
+    note: "A possible bridge for conventional submarine numbers while P75(I) remains a separate six-boat AIP programme. Higher indigenous content was stated in the 2023 AoN; specifications and delivery dates remain uncontracted.",
+    sources: [
+      { label: "Ministry of Defence · DAC AoN, 13 Jul 2023", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=1939178&lang=2&reg=3" },
+      { label: "Hindustan Times · CCS proposal, 13 Oct 2026", url: "https://www.hindustantimes.com/india-news/indian-navy-scorpene-kalvari-class-three-more-submarines-proposal-modi-government-rs-33000-crore-indian-ocean-101791851908321.html" },
+      { label: "ThePrint · six-year delivery estimate, 9 Jul 2025", url: "https://theprint.in/defence/nod-for-additional-scorpene-submarines-still-awaited-navy-mazagon-dockyard-ltd-in-limbo/2684757/" },
+    ],
   },
   {
     id: "p77",

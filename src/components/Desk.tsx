@@ -123,12 +123,16 @@ export function Desk() {
         <h1 className="desk-title mt-3 font-serif text-4xl leading-tight text-fg sm:text-5xl">
           The 2030s, contingent.
         </h1>
+        <p className="desk-byline mt-3">
+          <span className="desk-byline-mark" aria-hidden="true">✦</span>
+          <span>An independent project by <strong>ExiledSeraph</strong></span>
+        </p>
         <p className="desk-intro mt-4 text-sm leading-relaxed text-muted sm:text-base">
           A tracker of Indian Navy programmes with deliveries or decisions
           relevant to the 2030s. It follows the 23 September 2026 note, then
           adds related projects for context. Each row shows the public status
           and an estimated timeline: signed contracts, reported plans, or
-          modelled projections. Snapshot: 28 September 2026. Dates can shift
+          modelled projections. Snapshot: 17 October 2026. Dates can shift
           as approvals, contracts, and construction progress.
         </p>
       </header>
@@ -170,7 +174,7 @@ export function Desk() {
           {checkError
             ? checkError
             : changes.length === 0
-              ? `Checked ${formatChecked(checkedAt)}. Nothing material since 28 Sep 2026.`
+              ? `Checked ${formatChecked(checkedAt)}. Nothing material since 17 Oct 2026.`
               : `Checked ${formatChecked(checkedAt)}. ${changes.length} ${changes.length === 1 ? "row" : "rows"} moved: ${changes
                   .map((c) => PROGRAMMES.find((p) => p.id === c.id)?.name ?? c.id)
                   .join(", ")}.`}
@@ -195,13 +199,13 @@ export function Desk() {
 
       <footer className="desk-footer mt-10 border-t border-line pt-4 text-xs leading-relaxed text-dim">
         <p>
-          Public reporting as of 28 September 2026. P17A is the frigate reference;
+          Public reporting as of 17 October 2026. P17A is the frigate reference;
           Kalvari is the submarine reference. Projection bars are estimates, not
           commitments.
         </p>
-        <span className="desk-watermark" aria-label="ExiledSeraph watermark">
+        <span className="desk-watermark" aria-label="Created and maintained by ExiledSeraph">
           <span className="desk-watermark-mark" aria-hidden="true">✦</span>
-          <span className="desk-watermark-word">ExiledSeraph</span>
+          <span className="desk-watermark-word">A project by ExiledSeraph</span>
         </span>
       </footer>
     </div>
@@ -331,6 +335,22 @@ function Slate({
                     ))}
                   </dl>
                   <p className="mt-1 max-w-3xl text-sm leading-relaxed text-dim">{p.note}</p>
+                  {p.sources && (
+                    <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-dim">
+                      <span className="font-medium tracking-wide uppercase">Sources</span>
+                      {p.sources.map((source) => (
+                        <a
+                          key={source.url}
+                          href={source.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-brass-2 underline decoration-line underline-offset-4 hover:decoration-brass-2"
+                        >
+                          {source.label}
+                        </a>
+                      ))}
+                    </p>
+                  )}
                 </div>
               )}
             </li>

@@ -87,7 +87,7 @@ export const checkDevelopments = createServerFn({ method: "POST" }).handler(asyn
   if (!apiKey) return { ok: false, error: "A live check is not available in this environment." };
 
   const baseline = PROGRAMMES.map((p) => `${p.id} | ${p.stage} | ${p.window} | ${p.confidence}`).join("\n");
-  const prompt = `Baseline date: 28 September 2026. Indian Navy programme desk.
+  const prompt = `Baseline date: 17 October 2026. Indian Navy programme desk.
 Search the open web at most four times, in total, for material events AFTER that date only: a contract signature, an RFP, a CCS clearance, a keel, a launch, a delivery, or a commissioning.
 Do not guess. Do not move a delivery window unless a signed contract states one.
 If nothing material has happened, return {"changes":[]}.
