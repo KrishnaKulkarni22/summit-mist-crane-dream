@@ -13,9 +13,9 @@ export type Programme = {
   stage: string;
   confidence: Confidence;
   window: string;
-  /** Inclusive year span drawn on the horizon. */
-  from: number;
-  to: number;
+  /** Inclusive year span drawn on the horizon, when a public window exists. */
+  from?: number;
+  to?: number;
   contingent: string;
   phases: Phase[];
   note: string;
@@ -347,6 +347,27 @@ export const PROGRAMMES: Programme[] = [
     note: "Training hulls. They do not move the escort count. They do occupy a yard and a commissioning calendar.",
   },
   {
+    id: "mpv",
+    name: "MPV · Samarthak class",
+    domain: "surface",
+    count: "2 vessels · L&T",
+    stage: "One commissioned · one launched",
+    confidence: "signed",
+    window: "Utkarsh commissioning date unannounced",
+    contingent: "Samarthak entered service on 16 October 2026. Sister ship Utkarsh was launched in January 2025; no commissioning date has been announced in the cited sources.",
+    phases: [
+      { when: "25 Mar 2022", text: "The Ministry of Defence signed an ₹887 crore contract with L&T for two Multi-Purpose Vessels. The original schedule said deliveries would begin in May 2025." },
+      { when: "13 Jan 2025", text: "Utkarsh, the second vessel, was launched at L&T Kattupalli. Launch is not delivery or commissioning." },
+      { when: "16 Oct 2026", text: "INS Samarthak was commissioned at Karwar as the first of the two contracted MPVs. Its public roles include surveillance, trials support, unmanned-system support, towing and HADR." },
+    ],
+    note: "A small, versatile support and trials class, separate from the five Fleet Support Ships (oil replenishment ships). No public commissioning window is available for Utkarsh, so the horizon shows it as undated.",
+    sources: [
+      { label: "Ministry of Defence · two-ship contract, 25 Mar 2022", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=1809732&lang=2&reg=48" },
+      { label: "Ministry of Defence · Utkarsh launch, 13 Jan 2025", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2092693&lang=2&reg=48" },
+      { label: "Ministry of Defence · Samarthak commission, 16 Oct 2026", url: "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2324581&lang=2&reg=48" },
+    ],
+  },
+  {
     id: "fss",
     name: "Fleet support ships",
     domain: "surface",
@@ -456,6 +477,8 @@ export const HULLS: Hull[] = [
   { programme: "NGMV", hull: "Six missile vessels", yard: "CSL", status: "Keel laid", mark: "Contract 30 Mar 2023, ₹9,805 cr. Keel of yard 531 laid 18 Sep 2026. First delivery scheduled Mar 2027." },
   { programme: "NGOPV", hull: "Eleven offshore patrol vessels", yard: "GSL / GRSE", status: "In build", mark: "About ₹9,781 cr. Two launched, the rest on the slip or still to be laid." },
   { programme: "CTS", hull: "Three cadet training ships", yard: "L&T", status: "In build", mark: "About ₹3,108 cr and 4,700 tonnes. One launched, two keels laid." },
+  { programme: "MPV · Samarthak class", hull: "INS Samarthak", yard: "L&T · Kattupalli", status: "Commissioned", mark: "16 Oct 2026 · first of two vessels." },
+  { programme: "MPV · Samarthak class", hull: "Utkarsh", yard: "L&T · Kattupalli", status: "Launched", mark: "13 Jan 2025 · commissioning date not announced." },
   { programme: "FSS", hull: "Five fleet support ships", yard: "HSL", status: "Contracted", mark: "Signed Aug 2023. Deliveries reported from 2027 through 2031." },
   { programme: "P75", hull: "Kalvari class, six boats", yard: "MDL", status: "Class complete", mark: "Vagsheer commissioned 15 Jan 2025. The reference case for P75(I)." },
 ];

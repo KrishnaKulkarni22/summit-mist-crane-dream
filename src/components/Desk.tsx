@@ -395,8 +395,9 @@ function Horizon({
           </div>
           <ul className="mt-2">
             {shown.map((p) => {
-              const left = pct(p.from);
-              const width = Math.max(pct(p.to) - left, 1.2);
+              const hasWindow = p.from !== undefined && p.to !== undefined;
+              const left = hasWindow ? pct(p.from) : 0;
+              const width = hasWindow ? Math.max(pct(p.to) - left, 1.2) : 0;
               const hot = open === p.id;
               return (
                 <li key={p.id}>
@@ -415,16 +416,20 @@ function Horizon({
                       {p.name}
                     </span>
                     <span className="horizon-track relative col-span-9 h-4">
-                      <span
-                        className={
-                          p.confidence === "signed"
-                            ? `horizon-bar horizon-bar-signed${hot ? " horizon-bar-active" : ""}`
-                            : p.confidence === "reported"
-                              ? `horizon-bar horizon-bar-reported${hot ? " horizon-bar-active" : ""}`
-                              : `horizon-bar horizon-bar-model${hot ? " horizon-bar-active" : ""}`
-                        }
-                        style={{ left: `${left}%`, width: `${width}%` }}
-                      />
+                      {hasWindow ? (
+                        <span
+                          className={
+                            p.confidence === "signed"
+                              ? `horizon-bar horizon-bar-signed${hot ? " horizon-bar-active" : ""}`
+                              : p.confidence === "reported"
+                                ? `horizon-bar horizon-bar-reported${hot ? " horizon-bar-active" : ""}`
+                                : `horizon-bar horizon-bar-model${hot ? " horizon-bar-active" : ""}`
+                          }
+                          style={{ left: `${left}%`, width: `${width}%` }}
+                        />
+                      ) : (
+                        <span className="horizon-no-window">No public date</span>
+                      )}
                     </span>
                   </button>
                 </li>
