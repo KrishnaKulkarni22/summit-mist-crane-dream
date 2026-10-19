@@ -1,6 +1,6 @@
 export type Domain = "subsurface" | "surface" | "air" | "amphib" | "sensor";
 export type Confidence = "signed" | "reported" | "model";
-export type View = "slate" | "yards" | "uncrewed" | "rules";
+export type View = "slate" | "yards" | "uncrewed" | "rules" | "history";
 
 export type Phase = { when: string; text: string };
 export type Source = { label: string; url: string };

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { checkDevelopments, type DeskChange } from "@/lib/check-desk";
+import { SITE_VERSIONS } from "@/data/versions";
 import {
   DOMAINS,
   DOMAIN_LABEL,
@@ -20,6 +21,7 @@ const VIEWS: { id: View; label: string }[] = [
   { id: "yards", label: "In the yards" },
   { id: "uncrewed", label: "Uncrewed" },
   { id: "rules", label: "How dates are made" },
+  { id: "history", label: "Versions & updates" },
 ];
 
 const CONFIDENCE: Record<Confidence, string> = {
@@ -125,7 +127,13 @@ export function Desk() {
         </h1>
         <p className="desk-byline mt-3">
           <span className="desk-byline-mark" aria-hidden="true">✦</span>
-          <span>An independent project by <strong>ExiledSeraph</strong></span>
+          <span>
+            An independent project by <strong>ExiledSeraph</strong>
+            <span aria-hidden="true"> · </span>
+            <a href="https://x.com/ExiledSeraph6" target="_blank" rel="noreferrer" className="text-brass-2 underline decoration-line underline-offset-4 hover:decoration-brass-2">
+              @ExiledSeraph6 on X
+            </a>
+          </span>
         </p>
         <p className="desk-intro mt-4 text-sm leading-relaxed text-muted sm:text-base">
           A tracker of Indian Navy programmes with deliveries or decisions
@@ -174,7 +182,7 @@ export function Desk() {
           {checkError
             ? checkError
             : changes.length === 0
-              ? `Checked ${formatChecked(checkedAt)}. Nothing material since 17 Oct 2026.`
+              ? `Checked ${formatChecked(checkedAt)}. Nothing material since 19 Oct 2026.`
               : `Checked ${formatChecked(checkedAt)}. ${changes.length} ${changes.length === 1 ? "row" : "rows"} moved: ${changes
                   .map((c) => PROGRAMMES.find((p) => p.id === c.id)?.name ?? c.id)
                   .join(", ")}.`}
@@ -196,6 +204,7 @@ export function Desk() {
       {view === "yards" && <Yards />}
       {view === "uncrewed" && <UncrewedBoard />}
       {view === "rules" && <Rules />}
+      {view === "history" && <VersionHistory />}
 
       <footer className="desk-footer mt-10 border-t border-line pt-4 text-xs leading-relaxed text-dim">
         <p>
@@ -222,6 +231,48 @@ function formatChecked(iso: string | null) {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function VersionHistory() {
+  return (
+    <section className="mt-7" aria-labelledby="version-history-title">
+      <div className="border-b border-line pb-4">
+        <p className="text-xs font-medium tracking-widest text-brass uppercase">Published snapshots</p>
+        <h2 id="version-history-title" className="mt-2 font-serif text-2xl text-fg">
+          Versions &amp; updates
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted">
+          A record of meaningful changes to the public tracker. Status updates are linked to reporting; projected timelines remain estimates until a contract or official schedule supports a firmer date.
+        </p>
+      </div>
+      <ol className="max-w-4xl">
+        {SITE_VERSIONS.map((entry) => (
+          <li key={entry.version} className="grid gap-2 border-b border-line py-5 sm:grid-cols-[9rem_1fr] sm:gap-5">
+            <div>
+              <p className="text-sm font-medium text-brass-2">v{entry.version}</p>
+              <time className="mt-1 block text-xs text-dim">{entry.date}</time>
+            </div>
+            <div>
+              <h3 className="font-medium text-fg">{entry.title}</h3>
+              <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-muted">
+                {entry.changes.map((change) => <li key={change}>{change}</li>)}
+              </ul>
+              {entry.sources && (
+                <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-dim">
+                  <span className="font-medium tracking-wide uppercase">Sources</span>
+                  {entry.sources.map((source) => (
+                    <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="text-brass-2 underline decoration-line underline-offset-4 hover:decoration-brass-2">
+                      {source.label}
+                    </a>
+                  ))}
+                </p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
 }
 
 function Slate({
