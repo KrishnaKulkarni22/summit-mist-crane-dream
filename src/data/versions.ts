@@ -8,6 +8,23 @@ export type SiteVersion = {
 
 export const SITE_VERSIONS: SiteVersion[] = [
   {
+    version: "1.5",
+    date: "2 November 2026",
+    title: "NGOPV launches through Srishti",
+    changes: [
+      "Updated the 11-ship NGOPV programme from two to five launched vessels: Shachi, Sanghmitra, Shruti, Shreyas and Srishti.",
+      "Clarified that launch is not commissioning and retained the wider build timeline as a projection.",
+      "Updated the shipyard summary and linked the Ministry of Defence launch notices.",
+    ],
+    sources: [
+      { label: "PIB · Shachi launched, 31 Mar 2026", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247343&lang=2&reg=48" },
+      { label: "PIB · Sanghmitra launched, 20 May 2026", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2263508&lang=2&reg=3" },
+      { label: "PIB · Shruti launched, 11 Aug 2026", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2297905&lang=1&reg=3" },
+      { label: "PIB · Shreyas launched, 10 Oct 2026", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2321795&lang=1&reg=3" },
+      { label: "PIB · Srishti launched, 27 Oct 2026", url: "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2329197&lang=2&reg=48" },
+    ],
+  },
+  {
     version: "1.4",
     date: "2 November 2026",
     title: "Corvette contract report and destroyer AoN",
