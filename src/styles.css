@@ -26,6 +26,13 @@
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.5;
+    background-color: var(--color-bg);
+    background-image:
+      linear-gradient(180deg, rgb(16 24 32 / 68%) 0%, rgb(16 24 32 / 82%) 48%, rgb(16 24 32 / 93%) 100%),
+      url("/tracker-background.jpg");
+    background-position: center 28%;
+    background-size: cover;
+    background-attachment: fixed;
   }
   html {
     scroll-behavior: smooth;
@@ -356,6 +363,10 @@
   }
 
   @media (max-width: 639px) {
+    body {
+      background-attachment: scroll;
+    }
+
     .desk-footer {
       align-items: flex-start;
       flex-direction: column;
