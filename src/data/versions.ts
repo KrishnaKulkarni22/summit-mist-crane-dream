@@ -8,6 +8,19 @@ export type SiteVersion = {
 
 export const SITE_VERSIONS: SiteVersion[] = [
   {
+    version: "1.6",
+    date: "2 November 2026",
+    title: "FSS milestones and Mangrol commissioning",
+    changes: [
+      "Updated Fleet Support Ships with Surya's launch and FSS-5's keel laying on 6 October 2026, clearly distinguishing launch from commissioning.",
+      "Added INS Mangrol as a commissioned Mahe-class ASW shallow-water craft and refreshed the shipyard summary.",
+    ],
+    sources: [
+      { label: "PIB · Surya launch and FSS-5 keel laying, 6 Oct 2026", url: "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2319481&lang=2&reg=48" },
+      { label: "PIB · INS Mangrol commissioned, 12 Oct 2026", url: "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2322494&lang=2&reg=48" },
+    ],
+  },
+  {
     version: "1.5",
     date: "2 November 2026",
     title: "NGOPV launches through Srishti",
