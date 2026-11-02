@@ -12,7 +12,7 @@ export const SITE_VERSIONS: SiteVersion[] = [
     date: "2 November 2026",
     title: "Corvette contract report and destroyer AoN",
     changes: [
-      "Updated the NGC row with the reported MoD contract signing for eight corvettes; the reported ₹53,866.50 crore total is clearly marked as awaiting a directly linked official release.",
+      "Updated the NGC row to show the MoD contracts for eight corvettes as signed; the reported ₹53,866.50 crore total remains marked as awaiting a directly linked official release.",
       "Recorded the reported AoN for a next-generation destroyer above 10,000 tonnes, while keeping the Project 18 label and delivery horizon explicitly unconfirmed or modelled.",
       "Revised the NGC horizon to show the reported 2030 first-ship target and left the full class schedule as an estimate.",
     ],
