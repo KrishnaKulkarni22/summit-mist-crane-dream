@@ -8,61 +8,27 @@ export type SiteVersion = {
 
 export const SITE_VERSIONS: SiteVersion[] = [
   {
-    version: "1.6",
+    version: "1.4",
     date: "2 November 2026",
-    title: "FSS milestones and Mangrol commissioning",
+    title: "Programme status updates",
     changes: [
-      "Updated Fleet Support Ships with Surya's launch and FSS-5's keel laying on 6 October 2026, clearly distinguishing launch from commissioning.",
+      "Updated NGC to show the contracts as signed and recorded the reported 2030 first-ship target; the destroyer AoN remains attributed reporting, with its designation and timeline unconfirmed.",
+      "Updated the 11-ship NGOPV programme to five launched vessels: Shachi, Sanghmitra, Shruti, Shreyas and Srishti. Launch is not commissioning.",
+      "Updated Fleet Support Ships with Surya's launch and FSS-5's keel laying on 6 October; launch is not commissioning.",
       "Added INS Mangrol as a commissioned Mahe-class ASW shallow-water craft and refreshed the shipyard summary.",
     ],
     sources: [
-      { label: "PIB · Surya launch and FSS-5 keel laying, 6 Oct 2026", url: "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2319481&lang=2&reg=48" },
-      { label: "PIB · INS Mangrol commissioned, 12 Oct 2026", url: "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2322494&lang=2&reg=48" },
-    ],
-  },
-  {
-    version: "1.5",
-    date: "2 November 2026",
-    title: "NGOPV launches through Srishti",
-    changes: [
-      "Updated the 11-ship NGOPV programme from two to five launched vessels: Shachi, Sanghmitra, Shruti, Shreyas and Srishti.",
-      "Clarified that launch is not commissioning and retained the wider build timeline as a projection.",
-      "Updated the shipyard summary and linked the Ministry of Defence launch notices.",
-    ],
-    sources: [
+      { label: "X · Dr Ajayshree Singh Sambyal · NGC contract report, 2 Nov 2026", url: "https://x.com/AjayshreeSamby3" },
+      { label: "PIB · DAC approvals, 26 Oct 2026", url: "https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2328486&lang=2&reg=48" },
+      { label: "The Tribune · next-generation destroyer report, 26 Oct 2026", url: "https://www.tribuneindia.com/news/defence/army-artillery-drones-helicopters-and-more-centre-clears-rs-2-12-lakh-crore-deals-who-gets-what" },
+      { label: "Indian Express · CCS approval for eight NGCs, 30 Oct 2026", url: "https://indianexpress.com/article/india/indian-navy-next-generation-corvettes-project-approval-10943487/" },
       { label: "PIB · Shachi launched, 31 Mar 2026", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247343&lang=2&reg=48" },
       { label: "PIB · Sanghmitra launched, 20 May 2026", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2263508&lang=2&reg=3" },
       { label: "PIB · Shruti launched, 11 Aug 2026", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2297905&lang=1&reg=3" },
       { label: "PIB · Shreyas launched, 10 Oct 2026", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2321795&lang=1&reg=3" },
       { label: "PIB · Srishti launched, 27 Oct 2026", url: "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2329197&lang=2&reg=48" },
-    ],
-  },
-  {
-    version: "1.4",
-    date: "2 November 2026",
-    title: "Corvette contract report and destroyer AoN",
-    changes: [
-      "Updated the NGC row to show the MoD contracts for eight corvettes as signed; the reported ₹53,866.50 crore total remains marked as awaiting a directly linked official release.",
-      "Recorded the reported AoN for a next-generation destroyer above 10,000 tonnes, while keeping the Project 18 label and delivery horizon explicitly unconfirmed or modelled.",
-      "Revised the NGC horizon to show the reported 2030 first-ship target and left the full class schedule as an estimate.",
-    ],
-    sources: [
-      {
-        label: "X · Dr Ajayshree Singh Sambyal · contract report, 2 Nov 2026",
-        url: "https://x.com/AjayshreeSamby3",
-      },
-      {
-        label: "PIB · DAC approvals, 26 Oct 2026",
-        url: "https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2328486&lang=2&reg=48",
-      },
-      {
-        label: "The Tribune · next-generation destroyer report, 26 Oct 2026",
-        url: "https://www.tribuneindia.com/news/defence/army-artillery-drones-helicopters-and-more-centre-clears-rs-2-12-lakh-crore-deals-who-gets-what",
-      },
-      {
-        label: "Indian Express · CCS approval for eight NGCs, 30 Oct 2026",
-        url: "https://indianexpress.com/article/india/indian-navy-next-generation-corvettes-project-approval-10943487/",
-      },
+      { label: "PIB · Surya launch and FSS-5 keel laying, 6 Oct 2026", url: "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2319481&lang=2&reg=48" },
+      { label: "PIB · INS Mangrol commissioned, 12 Oct 2026", url: "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2322494&lang=2&reg=48" },
     ],
   },
   {
