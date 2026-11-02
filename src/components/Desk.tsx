@@ -140,7 +140,7 @@ export function Desk() {
           relevant to the 2030s. It follows the 23 September 2026 note, then
           adds related projects for context. Each row shows the public status
           and an estimated timeline: signed contracts, reported plans, or
-          modelled projections. Snapshot: 19 October 2026. Dates can shift
+          modelled projections. Snapshot: 2 November 2026. Dates can shift
           as approvals, contracts, and construction progress.
         </p>
       </header>
@@ -182,7 +182,7 @@ export function Desk() {
           {checkError
             ? checkError
             : changes.length === 0
-              ? `Checked ${formatChecked(checkedAt)}. Nothing material since 19 Oct 2026.`
+              ? `Checked ${formatChecked(checkedAt)}. Nothing material since 2 Nov 2026.`
               : `Checked ${formatChecked(checkedAt)}. ${changes.length} ${changes.length === 1 ? "row" : "rows"} moved: ${changes
                   .map((c) => PROGRAMMES.find((p) => p.id === c.id)?.name ?? c.id)
                   .join(", ")}.`}
@@ -208,7 +208,7 @@ export function Desk() {
 
       <footer className="desk-footer mt-10 border-t border-line pt-4 text-xs leading-relaxed text-dim">
         <p>
-          Public reporting as of 19 October 2026. P17A is the frigate reference;
+          Public reporting as of 2 November 2026. P17A is the frigate reference;
           Kalvari is the submarine reference. Projection bars are estimates, not
           commitments.
         </p>
